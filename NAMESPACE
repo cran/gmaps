@@ -1,0 +1,13 @@
+#Namespace for gmaps package
+export(
+	grid.mapGrob,
+	mapGrob,
+	validDetails.mapGrob,
+	USALevelPlot,
+	grid.USALevelPlot,
+	gradientLegendGrob,
+	grid.gradientLegendGrob,
+	widthDetails.gradientLegendGrob,
+	heightDetails.gradientLegendGrob,
+	reds,blues,greens
+)    
