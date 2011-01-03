@@ -11,7 +11,6 @@ gradientLegendGrob<-function(
 	at=seq(0,1,length=5), 	#where to place tick marks 
 	axis.min=min(at),		#to specify minimun
 	axis.max=max(at),		#to specify maximum
-	gradient.range=c(0,1),
 	labels=as.character(at),#specify labels for tick marks
 	col.fun=grey,		#function to specify gradient
 	delta=.01,			#defines level of precicion of gradient 
@@ -25,7 +24,7 @@ gradientLegendGrob<-function(
 	#generate Rectangles
 	if(delta<=0||delta>=1)stop("delta must be between 0 and 1.")
 	if(length(at)!=length(labels))stop("labels and at must be of the same length")
-	z<-(seq(gradient.range[1],gradient.range[2],by=delta)-delta/2)[-1]
+	z<-(seq(0,1,by=delta)-delta/2)[-1]
 	y<-if(vertical) unit(z,"npc") else unit(0.5,"npc")
 	x<-if(!vertical)unit(z,"npc") else unit(0.5,"npc")
 	height<-if(vertical)  delta else unit(1.5,"char")
@@ -72,12 +71,12 @@ grid.gradientLegendGrob<-function(...){
 }
 widthDetails.gradientLegendGrob<-function(x){
 	if(x$vertical) unit(1,"null") else{
-		unit(0.1,"lines")+widthDetails(x$children[[2]])+widthDetails(x$children[[3]])+widthDetails(x$children[[4]])
+		convertUnit(unit(0.1,"lines"),"inches","x")+widthDetails(x$children[[2]])+widthDetails(x$children[[3]])+widthDetails(x$children[[4]])
 	}
 }
 heightDetails.gradientLegendGrob<-function(x){
 	if(!x$vertical) unit(1,"null") else{
-		unit(0.1,"lines")+widthDetails(x$children[[2]])+widthDetails(x$children[[3]])+widthDetails(x$children[[4]])
+		convertUnit(unit(0.1,"lines"),"inches","x")+widthDetails(x$children[[2]])+widthDetails(x$children[[3]])+widthDetails(x$children[[4]])
 	}
 }
 

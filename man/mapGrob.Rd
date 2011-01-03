@@ -40,7 +40,7 @@ validDetails.mapGrob(x)
 	\item{x}{A mapGrob object}
 }
 \seealso{
-	\code{\link[grid]{grid.grob}}, \code{\link[maps:map]{maps}}
+	\code{\link[grid]{Grid}}, \code{\link[maps]{map}}
 }
 \examples{
 #The four corners area of the United States colored.

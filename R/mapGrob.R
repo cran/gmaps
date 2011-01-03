@@ -37,6 +37,7 @@ convert.coordinates.for.grid<-function(cod,regions=".",...){
 			region.id[id %in% name.matches]<-region.map[r]
 		}
 	}
+	
 	list(x=x,y=y,range=cod$range,names=cod$names,id=id,region.id=region.id,region.names=region.names)
 }
 
@@ -85,12 +86,18 @@ mapGrob<-function(
 
 	#Get Coordinates for plotting regions
 	c1<-map(database=database,regions=regions,exact=exact,fill=T,xlim=xlim,ylim=ylim,plot=F,...)
-	coord<-convert.coordinates.for.grid(c1,regions)
-
+	coord<-convert.coordinates.for.grid(c1, regions)
+    
+	# Aspect Ratio 
+	if(missing(asp)){
+		xrange <- range(coord$x, na.rm = TRUE)  
+		yrange <- range(coord$y, na.rm = TRUE)
+    aspect <- 1/cos((mean(yrange) * pi)/180)
+	} else aspect<-asp
 	#Grob generation
 	#mapvp<-viewport(height=unit(1,"npc"),width=unit(1,"npc"),xscale=coord$range[1:2],yscale=coord$range[3:4],name="map")
 	#map<-gTree(,vp=mapvp)
-	mapvp<-makeMapViewports(coord,asp=asp)
+	mapvp<-makeMapViewports(coord,asp=aspect)
 	mappolys<-makeMapPolygons(coord,fill.col=fill.col,gp=gp)
 	gTree(coord=coord,name=name,gp=gp,vp=vp,
 		childrenvp=mapvp,
